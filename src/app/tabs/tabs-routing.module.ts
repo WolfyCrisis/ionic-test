@@ -8,19 +8,19 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('./tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'share',
+        loadChildren: () => import('./share/share.module').then(m => m.SharePageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/share',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/share',
     pathMatch: 'full'
   }
 ];
