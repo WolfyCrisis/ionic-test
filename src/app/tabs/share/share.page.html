@@ -1,0 +1,305 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-icon
+      id="deviceLogo"
+      class="ion-margin-start"
+      slot="start"
+      size="large"
+      [name]="deviceLogo"
+    />
+    <ion-popover trigger="deviceLogo" triggerAction="hover">
+      <ng-template>
+        <ion-content class="ion-padding">{{ deviceInfo }}</ion-content>
+      </ng-template>
+    </ion-popover>
+    <ion-title class="ion-text-center"> Share </ion-title>
+    <ion-icon
+      id="browserLogo"
+      class="ion-margin-end"
+      slot="end"
+      size="large"
+      [name]="browserLogo"
+    />
+    <ion-popover trigger="browserLogo" triggerAction="hover" *ngIf="!isApp">
+      <ng-template>
+        <ion-content class="ion-padding"> {{ browserInfo }} </ion-content>
+      </ng-template>
+    </ion-popover>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        sizeSm="8"
+        offsetSm="2"
+        sizeMd="6"
+        offsetMd="3"
+        sizeLg="4"
+        offsetLg="4"
+      >
+        <ion-item-group>
+          <ion-item class="ion-padding-vertical">
+            <ion-accordion-group style="width: 100%">
+              <ion-accordion value="packages">
+                <ion-item slot="header" color="light">
+                  <ion-label>Packages / APIs used in this tab</ion-label>
+                </ion-item>
+                <ion-item class="ion-no-margin" slot="content">
+                  <ion-col>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a href="https://capacitorjs.com/docs/apis/filesystem">
+                          Capacitor Filesystem
+                        </a>
+                        &nbsp;( <u>App</u> )
+                      </ion-label>
+                    </ion-row>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a href="https://capacitorjs.com/docs/apis/share">
+                          Capacitor Share
+                        </a>
+                        &nbsp;( <u>App</u> )
+                      </ion-label>
+                    </ion-row>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a
+                          href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API"
+                        >
+                          Web Share API
+                        </a>
+                        &nbsp;( <u>Browser</u> )
+                      </ion-label>
+                    </ion-row>
+                  </ion-col>
+                </ion-item>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-item>
+          <ion-item class="ion-padding-vertical">
+            <form style="width: 100%" [formGroup]="textFG">
+              <ion-accordion-group>
+                <ion-accordion value="general">
+                  <ion-item slot="header" color="light">
+                    <ion-label>General</ion-label>
+                  </ion-item>
+                  <ion-item class="ion-no-margin" slot="content">
+                    <ion-col>
+                      <ion-row>
+                        <ion-input
+                          labelPlacement="stacked"
+                          placeholder="Enter Dialog Title Here"
+                          [clearInput]="true"
+                          formControlName="dialogTitle"
+                        >
+                          <div slot="label">
+                            Dialog Title
+                            <ion-text color="danger"> (Android Only) </ion-text>
+                          </div>
+                        </ion-input>
+                      </ion-row>
+                      <ion-row>
+                        <ion-input
+                          label="Title"
+                          labelPlacement="stacked"
+                          placeholder="Enter Title Here"
+                          [clearInput]="true"
+                          formControlName="title"
+                        />
+                      </ion-row>
+                      <ion-row>
+                        <ion-textarea
+                          label="Text"
+                          labelPlacement="stacked"
+                          placeholder="Enter Text Here"
+                          formControlName="text"
+                        />
+                      </ion-row>
+                      <ion-row>
+                        <ion-input
+                          label="Url"
+                          labelPlacement="stacked"
+                          placeholder="Enter Url Here"
+                          inputmode="url"
+                          helperText='Can be "http", "https", or "file://" URL'
+                          [clearInput]="true"
+                          formControlName="url"
+                        />
+                      </ion-row>
+                    </ion-col>
+                  </ion-item>
+                </ion-accordion>
+                <ion-accordion value="twitter">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Twitter</ion-label>
+                  </ion-item>
+                  <ion-item class="ion-no-margin" slot="content">
+                    <ion-col>
+                      <ion-row>
+                        <ion-input
+                          label="Hashtags"
+                          labelPlacement="stacked"
+                          placeholder="Enter Hashtags Here"
+                          [clearInput]="true"
+                          formControlName="hashtags"
+                        />
+                      </ion-row>
+                      <ion-row>
+                        <ion-input
+                          label="Via"
+                          labelPlacement="stacked"
+                          placeholder="Enter Via Here"
+                          [clearInput]="true"
+                          formControlName="via"
+                        />
+                      </ion-row>
+                    </ion-col>
+                  </ion-item>
+                </ion-accordion>
+                <ion-accordion value="whatsApp">
+                  <ion-item slot="header" color="light">
+                    <ion-label>WhatsApp</ion-label>
+                  </ion-item>
+                  <ion-item class="ion-no-margin" slot="content">
+                    <ion-col>
+                      <ion-row>
+                        <ion-input
+                          label="Phone Number"
+                          labelPlacement="stacked"
+                          placeholder="Enter Phone Number Here"
+                          [clearInput]="true"
+                          formControlName="phoneNumber"
+                        />
+                      </ion-row>
+                    </ion-col>
+                  </ion-item>
+                </ion-accordion>
+              </ion-accordion-group>
+            </form>
+          </ion-item>
+          <ion-item class="ion-padding-vertical">
+            <form style="width: 100%" [formGroup]="fileFG">
+              <ion-row class="ion-padding-bottom">
+                <ion-label
+                  [ngStyle]="{'opacity': browserS.getBrowserName() === 'Firefox' ? '25%' : '100%'}"
+                >
+                  Amount of file(s) to share:
+                </ion-label>
+              </ion-row>
+              <ion-row>
+                <ion-segment formControlName="amount">
+                  <ion-segment-button value="none">
+                    <ion-label> None </ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="single">
+                    <ion-label> Single </ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="multi">
+                    <ion-label> Multi </ion-label>
+                  </ion-segment-button>
+                </ion-segment>
+              </ion-row>
+              <ion-col *ngIf="fileFG.get('amount')?.value !== 'none'">
+                <ion-row class="ion-padding-bottom">
+                  <ion-label> Type of file(s) to share: </ion-label>
+                </ion-row>
+                <ion-row>
+                  <ion-segment formControlName="type">
+                    <ion-segment-button value="all">
+                      <ion-label> All </ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="media">
+                      <ion-label> Media </ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="pdf">
+                      <ion-label> PDF </ion-label>
+                    </ion-segment-button>
+                  </ion-segment>
+                </ion-row>
+              </ion-col>
+            </form>
+          </ion-item>
+          <ion-item class="ion-padding-vertical">
+            <ion-col>
+              <ion-row class="ion-padding-bottom">
+                <ion-label>
+                  Share with Ionic Capacitor Share / Share Web API
+                </ion-label>
+              </ion-row>
+              <ion-row class="ion-padding-bottom">
+                <ion-button
+                  style="width: 100%"
+                  size="default"
+                  [disabled]="loading"
+                  (click)="fileAmount === 'none' ? share() : uploadFile.click()"
+                >
+                  <ion-spinner *ngIf="loading; else shareText" />
+                  <ng-template #shareText>Share</ng-template>
+                </ion-button>
+                <input
+                  #uploadFile
+                  class="ion-hide"
+                  type="file"
+                  [accept]="acceptedTypes"
+                  [multiple]="fileAmount === 'multi'"
+                  (change)="share($event)"
+                  (click)="uploadClick($event)"
+                />
+              </ion-row>
+              <ion-row class="ion-padding-bottom" *ngIf="errMsg">
+                <ion-note
+                  class="ion-text-center"
+                  style="width: 100%"
+                  color="danger"
+                >
+                  {{ errMsg }}
+                </ion-note>
+              </ion-row>
+              <ion-row class="ion-padding-bottom">
+                <ion-label> Share using their respective share url </ion-label>
+              </ion-row>
+              <ion-row class="ion-padding-bottom ion-justify-content-center">
+                <ion-button
+                  size="default"
+                  [href]="facebookShareUrl"
+                >
+                  <ion-icon name="logo-facebook" />
+                </ion-button>
+                <ion-button
+                  size="default"
+                  [href]="redditShareurl"
+                >
+                  <ion-icon name="logo-reddit" />
+                </ion-button>
+                <ion-button
+                  size="default"
+                  [href]="twitterShareUrl"
+                >
+                  <ion-icon name="logo-twitter" />
+                </ion-button>
+                <ion-button
+                  size="default"
+                  [href]="linkedInShareUrl"
+                >
+                  <ion-icon name="logo-linkedin" />
+                </ion-button>
+                <ion-button
+                  size="default"
+                  [href]="whatsAppShareUrl"
+                >
+                  <ion-icon name="logo-whatsapp" />
+                </ion-button>
+              </ion-row>
+            </ion-col>
+          </ion-item>
+        </ion-item-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
