@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-icon
+      id="deviceLogo"
+      class="ion-margin-start"
+      slot="start"
+      size="large"
+      [name]="deviceLogo"
+    />
+    <ion-popover trigger="deviceLogo" triggerAction="hover">
+      <ng-template>
+        <ion-content class="ion-padding">{{ deviceInfo }}</ion-content>
+      </ng-template>
+    </ion-popover>
+    <ion-title class="ion-text-center"> {{ title }} </ion-title>
+    <ion-icon
+      id="browserLogo"
+      class="ion-margin-end"
+      slot="end"
+      size="large"
+      [name]="browserLogo"
+    />
+    <ion-popover trigger="browserLogo" triggerAction="hover" *ngIf="!isApp">
+      <ng-template>
+        <ion-content class="ion-padding"> {{ browserInfo }} </ion-content>
+      </ng-template>
+    </ion-popover>
+  </ion-toolbar>
+</ion-header>
