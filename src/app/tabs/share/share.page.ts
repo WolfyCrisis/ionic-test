@@ -4,17 +4,9 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
-import { Device } from '@capacitor/device';
 import { BrowserService } from 'src/app/services/browser.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
-type DeviceLogo = 'help-circle' | 'logo-android' | 'logo-apple' | 'desktop';
-type BrowserLogo =
-  | 'help-circle'
-  | 'logo-capacitor'
-  | 'logo-chrome'
-  | 'logo-edge'
-  | 'logo-firefox';
 type FileAmount = 'none' | 'single' | 'multi';
 type FileType = 'all' | 'media' | 'pdf';
 
@@ -27,15 +19,6 @@ export class SharePage {
   // General Variables
   loading: boolean = false;
   errMsg: string | undefined = undefined;
-
-  // Device Variables
-  deviceLogo: DeviceLogo = 'help-circle';
-  deviceInfo: string = '';
-
-  // Browser / isApp Variables
-  browserLogo: BrowserLogo = 'help-circle';
-  browserInfo: string = '';
-  isApp: boolean = false;
 
   // FormGroup / FormControl Variables
   textFG = new FormGroup({
@@ -71,7 +54,6 @@ export class SharePage {
     private utilS: UtilityService,
     public browserS: BrowserService
   ) {
-    this.init();
   }
 
   // Getters for FormControls
@@ -141,48 +123,11 @@ export class SharePage {
     return `https://api.whatsapp.com/send?phone=${this.phoneNumber}&text=${this.text}%20${this.url}`
   }
 
-  // Initialization
-  async init() {
-    this.deviceLogo = this.platform.is('desktop')
-      ? 'desktop'
-      : this.platform.is('android')
-      ? 'logo-android'
-      : this.platform.is('ios')
-      ? 'logo-apple'
-      : 'help-circle';
-    this.deviceInfo = await Device.getInfo().then((val) => {
-      const { manufacturer, model, operatingSystem, osVersion } = val;
-      return `${manufacturer} ${model} (${operatingSystem} ${osVersion})`;
-    });
-    this.isApp = Capacitor.isNativePlatform();
-
-    if (this.isApp) {
-      this.browserLogo = 'logo-capacitor';
-    } else {
-      this.browserInfo = `${this.browserS.getBrowserName()} (${this.browserS.getBrowserVersion()})`;
-
-      switch (this.browserS.getBrowserName()) {
-        case 'Chrome':
-          this.browserLogo = 'logo-chrome';
-          break;
-        case 'Microsoft Edge':
-          this.browserLogo = 'logo-edge';
-          break;
-        case 'Firefox':
-          this.browserLogo = 'logo-firefox';
-          break;
-        default:
-          this.browserLogo = 'help-circle';
-          break;
-      }
-    }
-  }
-
   async share(event?: Event) {
     this.loading = true;
     this.errMsg = undefined;
 
-    if (this.isApp) {
+    if (Capacitor.isNativePlatform()) {
       const files: string[] = [];
 
       if (event && event.target instanceof HTMLInputElement) {

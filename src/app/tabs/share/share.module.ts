@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharePage } from './share.page';
 
 import { SharePageRoutingModule } from './share-routing.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { SharePageRoutingModule } from './share-routing.module';
     FormsModule,
     SharePageRoutingModule,
     ReactiveFormsModule,
+    ComponentsModule
   ],
   declarations: [SharePage],
 })
