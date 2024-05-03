@@ -1,0 +1,454 @@
+<app-header title="Info" />
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        sizeSm="8"
+        offsetSm="2"
+        sizeMd="6"
+        offsetMd="3"
+        sizeLg="4"
+        offsetLg="4"
+      >
+        <ion-item-group>
+          <ion-item class="ion-padding-vertical">
+            <ion-accordion-group style="width: 100%">
+              <ion-accordion value="packages">
+                <ion-item slot="header" color="light">
+                  <ion-label>Packages / APIs used in this tab</ion-label>
+                </ion-item>
+                <ion-item class="ion-no-margin" slot="content">
+                  <ion-col>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a href="https://ionicframework.com/docs/native/app">
+                          Capacitor App
+                        </a>
+                        &nbsp;( <u>App</u> )
+                      </ion-label>
+                    </ion-row>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a href="https://ionicframework.com/docs/native/device">
+                          Capacitor Device
+                        </a>
+                        &nbsp;( <u>App</u> )
+                      </ion-label>
+                    </ion-row>
+                    <ion-row>
+                      <ion-label>
+                        ➤&nbsp;
+                        <a
+                          href="https://ionicframework.com/docs/native/network"
+                        >
+                          Capacitor Network
+                        </a>
+                      </ion-label>
+                    </ion-row>
+                  </ion-col>
+                </ion-item>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-item>
+          <ion-item class="ion-padding-vertical">
+            <ion-list style="width: 100%">
+              <ion-list-header>
+                <ion-label>
+                  Application Information
+                  <ion-note color="danger" *ngIf="!isApp">
+                    (only available in App)
+                  </ion-note>
+                </ion-label>
+              </ion-list-header>
+              <div *ngIf="isApp">
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    ID
+                  </ion-label>
+                  <ion-label
+                    [color]="appInfo['id'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['id'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Name
+                  </ion-label>
+                  <ion-label
+                    [color]="appInfo['name'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['name'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Build
+                  </ion-label>
+                  <ion-label
+                    [color]="appInfo['build'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['build'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Version
+                  </ion-label>
+                  <ion-label
+                    [color]="appInfo['version'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['version'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item id="launchUrl">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      column-gap: 8px;
+                    "
+                  >
+                    <ion-label style="font-weight: bold" slot="start">
+                      Launch Url
+                    </ion-label>
+                    <ion-icon
+                      name="help-circle-outline"
+                      size="default"
+                      color="secondary"
+                    />
+                    <ion-popover trigger="launchUrl" triggerAction="hover">
+                      <ng-template>
+                        <ion-note slot="start">
+                          if it doesn't show, try "io.ionic.starter:" (default
+                          url) in browser.
+                        </ion-note>
+                      </ng-template>
+                    </ion-popover>
+                  </div>
+                  <ion-label
+                    [color]="appInfo['launchUrl'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['launchUrl'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item id="appState">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      column-gap: 8px;
+                    "
+                  >
+                    <ion-label style="font-weight: bold" slot="start">
+                      State
+                    </ion-label>
+                    <ion-icon
+                      name="help-circle-outline"
+                      size="default"
+                      color="secondary"
+                    />
+                    <ion-popover trigger="appState" triggerAction="hover">
+                      <ng-template>
+                        <ion-note slot="start">
+                          can see changes in console.
+                        </ion-note>
+                      </ng-template>
+                    </ion-popover>
+                  </div>
+                  <ion-label
+                    [color]="appInfo['state'] ? 'success' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ appInfo['state'] ? 'active' : 'inactive' }}
+                  </ion-label>
+                </ion-item>
+              </div>
+            </ion-list>
+          </ion-item>
+
+          <ion-item class="ion-padding-vertical">
+            <ion-list style="width: 100%">
+              <ion-list-header>
+                <ion-label>
+                  Device Information
+                  <ion-note color="danger" *ngIf="!isApp">
+                    (only available in App)
+                  </ion-note>
+                </ion-label>
+              </ion-list-header>
+              <div *ngIf="isApp">
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    ID
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['id'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['id'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Name
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['name'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['name'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Model
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['model'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['model'] || '-'}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Platform
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['platform'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['platform'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Operating System
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['operatingSystem'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['operatingSystem'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    OS Version
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['osVersion'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['osVersion'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    iOS Version
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['iOSVersion'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['iOSVersion'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Android SDK Version
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['androidSDKVersion'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['androidSDKVersion'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Manafacturer
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['manufacturer'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['manufacturer'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Virtual Device
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['isVirtual'] ? 'success' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['isVirtual'] }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Memory Used
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['memUsed'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['memUsed'] !== null ? deviceInfo['memUsed'] :
+                    '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Free Disk Space
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['diskFree'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['diskFree'] !== null ? deviceInfo['diskFree']
+                    : '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Total Disk Space
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['diskTotal'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['diskTotal'] !== null ?
+                    deviceInfo['diskTotal'] : '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Real Free Disk Space
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['realDiskFree'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['realDiskFree'] !== null ?
+                    deviceInfo['realDiskFree'] : '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Real Total Disk Space
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['realDiskTotal'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['realDiskTotal'] !== null ?
+                    deviceInfo['realDiskTotal'] : '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Web View Version
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['webViewVersion'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['webViewVersion'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Battery Level
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['batteryLevel'] !== null ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['batteryLevel'] !== null ?
+                    deviceInfo['batteryLevel'] * 100 + '%': '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Charging
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['isCharging'] ? 'success' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['isCharging'] ? 'charging' : 'not charging' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Language Code
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['languageCode'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['languageCode'] || '-' }}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label style="font-weight: bold" slot="start">
+                    Language Tag
+                  </ion-label>
+                  <ion-label
+                    [color]="deviceInfo['languageTag'] ? 'primary' : 'danger'"
+                    style="text-align: end"
+                  >
+                    {{ deviceInfo['languageTag'] || '-' }}
+                  </ion-label>
+                </ion-item>
+              </div>
+            </ion-list>
+          </ion-item>
+
+          <ion-item class="ion-padding-vertical">
+            <ion-list style="width: 100%">
+              <ion-list-header>
+                <ion-label> Network Information </ion-label>
+              </ion-list-header>
+              <ion-item>
+                <ion-label style="font-weight: bold" slot="start">
+                  Network Connected
+                </ion-label>
+                <ion-label
+                  [color]="networkInfo['connected'] ? 'success' : 'danger'"
+                  style="text-align: end"
+                >
+                  {{ networkInfo['connected'] ? 'connected' : 'not connected' }}
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label style="font-weight: bold" slot="start">
+                  Network Connection Type
+                </ion-label>
+                <ion-label
+                  [color]="networkInfo['connectionType'] ? 'primary' : 'danger'"
+                  style="text-align: end"
+                >
+                  {{ networkInfo['connectionType'] || '-' }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-item>
+        </ion-item-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
