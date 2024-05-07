@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { Device } from '@capacitor/device';
 import { Platform } from '@ionic/angular';
@@ -18,7 +18,7 @@ type BrowserLogo =
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() title = ''
+  @Input() title = '';
   // Device Variables
   deviceLogo: DeviceLogo = 'help-circle';
   deviceInfo: string = '';
@@ -31,7 +31,6 @@ export class HeaderComponent {
   constructor(private platform: Platform, public browserS: BrowserService) {
     this.init();
   }
-
   // Initialization
   async init() {
     this.deviceLogo = this.platform.is('desktop')
@@ -41,12 +40,8 @@ export class HeaderComponent {
       : this.platform.is('ios')
       ? 'logo-apple'
       : 'help-circle';
-    this.deviceInfo = await Device.getInfo().then((val) => {
-      const { manufacturer, model, operatingSystem, osVersion } = val;
-      return `${manufacturer} ${model} (${operatingSystem} ${osVersion})`;
-    });
-    this.isApp = Capacitor.isNativePlatform();
 
+    this.isApp = Capacitor.isNativePlatform();
     if (this.isApp) {
       this.browserLogo = 'logo-capacitor';
     } else {
@@ -67,5 +62,10 @@ export class HeaderComponent {
           break;
       }
     }
+
+    this.deviceInfo = await Device.getInfo().then((val) => {
+      const { manufacturer, model, operatingSystem, osVersion } = val;
+      return `${manufacturer} ${model} (${operatingSystem} ${osVersion})`;
+    });
   }
 }
