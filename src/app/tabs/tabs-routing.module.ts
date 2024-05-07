@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('./share/share.module').then(m => m.SharePageModule)
       },
       {
+        path: 'info',
+        loadChildren: () => import('./info/info.module').then(m => m.InfoPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/share',
         pathMatch: 'full'
